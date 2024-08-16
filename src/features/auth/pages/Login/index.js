@@ -1,7 +1,15 @@
 import React from "react";
 
+import Form from "../../../../components/forms/Form";
+
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  const handleSubmit = () => {};
+
+  return (
+    <Form heading="Login" onSubmit={handleSubmit}>
+      <div>test </div>
+    </Form>
+  );
 };
 
 export default LoginPage;
