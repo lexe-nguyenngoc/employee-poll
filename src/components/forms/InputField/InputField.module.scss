@@ -1,0 +1,14 @@
+.input-field {
+  width: 100%;
+  padding: 8px;
+
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+  transition: all ease-in 0.25s;
+
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+  }
+}

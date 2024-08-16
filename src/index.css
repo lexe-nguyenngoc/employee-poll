@@ -25,3 +25,11 @@ html {
 body {
   font-size: 1.6rem;
 }
+
+:root {
+  /* --color: #467DA7;
+  --color: #A3C7E3;
+  --color: #FAEEDA;
+  --color: #FFFCDE; */
+  --primary-color: #73cfd9;
+}
