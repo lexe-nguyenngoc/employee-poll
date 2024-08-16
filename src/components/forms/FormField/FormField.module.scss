@@ -1,0 +1,39 @@
+.form-field {
+  &__label {
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+
+    &.required::after {
+      content: "*";
+      color: #d62424;
+    }
+  }
+
+  &__control {
+    width: 100%;
+  }
+
+  &__message {
+    height: 30px;
+    padding-left: 8px;
+
+    font-size: 1.2rem;
+    color: #d62424;
+
+    &.show {
+      animation: show-message ease-in 0.5s;
+    }
+  }
+}
+
+@keyframes show-message {
+  from {
+    transform: translateY(-30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
