@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 /**
  *
- * @param {{type: 'submit' | 'button', color: 'primary' | 'secondary', variant: "contained" |'outlined'}} param0
+ * @param {{className: string, type: 'submit' | 'button', color: 'primary' | 'secondary', variant: "contained" |'outlined'}} param0
  * @returns
  */
 const Button = ({
@@ -32,6 +32,7 @@ const Button = ({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   type: PropTypes.oneOf(["submit", "button"]),
   color: PropTypes.oneOf(["primary", "secondary"]),
   variant: PropTypes.oneOf(["contained", "outlined"])
