@@ -1,12 +1,16 @@
-import React from "react";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
 
+import { loginAsync } from "../../asyncAction";
+import { resetErrorMessage, selectState } from "../../authSlice";
 import { Button, Form, InputField } from "../../../../components/forms";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const loginSchema = yup.object({
-  username: yup.string().required("This field must be required!"),
+  user: yup.string().required("This field must be required!"),
   password: yup
     .string()
     .required("This field must be required!")
@@ -18,25 +22,41 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    watch,
+
     formState: { errors }
   } = useForm({
     resolver: yupResolver(loginSchema)
   });
+  const { errorMessage, loading } = useSelector(selectState);
+  const dispatch = useDispatch();
 
   const handleLogin = (data) => {
-    console.log({ data });
+    dispatch(loginAsync(data));
   };
+
+  useEffect(() => {
+    if (!errorMessage) return;
+
+    const subscribe = watch(() => {
+      dispatch(resetErrorMessage());
+    });
+
+    return () => {
+      subscribe?.unsubscribe?.();
+    };
+  }, [errorMessage]);
 
   return (
     <Form heading="Login" onSubmit={handleSubmit(handleLogin)}>
       <InputField
-        name="username"
-        label="Username"
+        name="user"
+        label="User"
         required
-        placeholder="Input your username"
+        placeholder="Input your user"
         type="text"
         register={register}
-        message={errors?.username?.message}
+        message={errors?.user?.message}
       />
       <InputField
         name="password"
@@ -47,8 +67,11 @@ const LoginPage = () => {
         register={register}
         message={errors?.password?.message}
       />
+
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+
       <Button color="primary" variant="contained" type="submit">
-        Submit
+        {loading ? "Loading" : "Submit"}
       </Button>
     </Form>
   );
