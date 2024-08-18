@@ -1,0 +1,74 @@
+@mixin center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin text {
+  font-size: 1.6rem;
+  letter-spacing: 0.2px;
+}
+
+$link-width: 150px;
+
+.nav {
+  @include center();
+  padding: 10px 0;
+
+  &__left-side {
+    position: relative;
+  }
+
+  &__highlighter {
+    position: absolute;
+    top: 100%;
+    width: $link-width;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: left ease-in-out 0.2s;
+  }
+
+  ul {
+    @include center();
+    list-style: none;
+  }
+
+  li {
+    width: $link-width;
+  }
+
+  &__link {
+    @include text();
+
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 8px 0px;
+  }
+
+  &__user-action {
+    @include center();
+
+    padding-right: 50px;
+  }
+
+  &__user {
+    @include center();
+    @include text();
+
+    img {
+      width: 30px;
+      margin-right: 5px;
+    }
+  }
+
+  &__btn {
+    @include text();
+
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+}

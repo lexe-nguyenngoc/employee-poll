@@ -11,7 +11,20 @@ const App = () => {
     {
       path: "/",
       element: <EmployeePoll />,
-      children: []
+      children: [
+        {
+          path: "",
+          element: <p>home</p>
+        },
+        {
+          path: "leader-board",
+          element: <p>leader-board</p>
+        },
+        {
+          path: "new",
+          element: <p>new</p>
+        }
+      ]
     },
     {
       path: "auth",
