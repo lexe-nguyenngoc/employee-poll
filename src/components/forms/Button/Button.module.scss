@@ -1,0 +1,48 @@
+$primary-color: green;
+$secondary-color: #edf2f7;
+
+@mixin theme($color, $background, $shadowColor) {
+  color: $color;
+  background-color: $background;
+  transition: all linear 0.25s;
+  border-color: $color;
+
+  &:hover {
+    box-shadow: 0 0 5px 1px $shadowColor;
+  }
+}
+
+.btn {
+  padding: 8px 16px;
+
+  background-color: transparent;
+  color: #000000;
+
+  font-size: 1.4rem;
+  letter-spacing: 0.2px;
+  font-weight: 500;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &.primary {
+    &.contained {
+      @include theme(#fff, $primary-color, $primary-color);
+    }
+
+    &.outlined {
+      @include theme($primary-color, transparent, $primary-color);
+    }
+  }
+
+  &.secondary {
+    &.contained {
+      @include theme(#000, $secondary-color, $secondary-color);
+    }
+
+    &.outlined {
+      @include theme($secondary-color, transparent, $secondary-color);
+    }
+  }
+}
