@@ -1,18 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import classNames from "classnames/bind";
-
-import styles from "./Home.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTransformedQuestions } from "../../employeePollSlice";
+
+import { transformQuestionToType } from "../../../../utils";
+import { selectQuestions } from "../../employeePollSlice";
+import { selectCurrentUser } from "../../../auth/authSlice";
 import { getQuestionsThunk } from "../../asyncActions";
 import QuestionsContainer from "../../components/QuestionsContainer";
+
+import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
 
 const Home = () => {
-  const data = useSelector(selectTransformedQuestions);
+  const questions = useSelector(selectQuestions);
+  const currentUser = useSelector(selectCurrentUser);
+
+  const transformedQuestions = useMemo(() => {
+    const transformedQuestions = transformQuestionToType(
+      questions,
+      currentUser.id
+    );
+
+    return transformedQuestions;
+  }, [questions, currentUser]);
+
   const dispatch = useDispatch();
-  console.log(data);
 
   useEffect(() => {
     dispatch(getQuestionsThunk());
@@ -20,8 +33,14 @@ const Home = () => {
 
   return (
     <div className={cx("home")}>
-      <QuestionsContainer heading="New Questions" questions={data.new} />
-      <QuestionsContainer heading="Done" questions={data.done} />
+      <QuestionsContainer
+        heading="New Questions"
+        questions={transformedQuestions.new}
+      />
+      <QuestionsContainer
+        heading="Done"
+        questions={transformedQuestions.done}
+      />
     </div>
   );
 };

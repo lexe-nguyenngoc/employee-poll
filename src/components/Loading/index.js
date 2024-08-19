@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useSelector } from "react-redux";
 
-import { selectQuestionLoading } from "../../features/employee-poll/employeePollSlice";
+import {
+  selectQuestionLoading,
+  selectQuestionLoadingCompleted
+} from "../../features/employee-poll/employeePollSlice";
 import styles from "./Loading.module.scss";
 
 const cx = classNames.bind(styles);
 
 const Loading = () => {
-  const { loading, isCompleted } = useSelector(selectQuestionLoading);
+  const loading = useSelector(selectQuestionLoading);
+  const isCompleted = useSelector(selectQuestionLoadingCompleted);
   const [hide, setHide] = useState(false);
 
   useEffect(() => {

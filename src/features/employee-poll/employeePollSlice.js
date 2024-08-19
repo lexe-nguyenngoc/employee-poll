@@ -25,21 +25,11 @@ const employeePollSlice = createSlice({
 });
 
 export const selectState = (state) => state[ROOT_STATE_NAME];
-export const selectTransformedQuestions = (state) => {
-  const currentUserId = selectCurrentUser(state).id;
-  const questions = state[ROOT_STATE_NAME].questions;
+export const selectQuestions = (state) => state[ROOT_STATE_NAME].questions;
+export const selectQuestionLoading = (state) => state[ROOT_STATE_NAME].loading;
 
-  const transformedQuestions = transformQuestionToType(
-    questions,
-    currentUserId
-  );
-
-  return transformedQuestions;
-};
-export const selectQuestionLoading = (state) => ({
-  loading: state[ROOT_STATE_NAME].loading,
-  isCompleted: !!state[ROOT_STATE_NAME].questions
-});
+export const selectQuestionLoadingCompleted = (state) =>
+  !!state[ROOT_STATE_NAME].questions;
 
 export const {} = employeePollSlice.actions;
 export default employeePollSlice.reducer;
