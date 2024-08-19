@@ -1,0 +1,21 @@
+.questions-container {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+  &__heading {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 12px;
+
+    list-style: none;
+    border-top: 1px solid #ccc;
+  }
+}
