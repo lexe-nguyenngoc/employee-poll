@@ -9,11 +9,10 @@ const EmployeePoll = () => {
 
   if (!currentUser) return <Navigate to="/auth" />;
   return (
-    <div>
+    <>
       <Nav />
-
       <Outlet />
-    </div>
+    </>
   );
 };
 

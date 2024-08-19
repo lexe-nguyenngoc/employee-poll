@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginAsync } from "../../asyncAction";
+import { loginAsync } from "../../asyncActions";
 import { resetErrorMessage, selectState } from "../../authSlice";
 import { Button, Form, InputField } from "../../../../components/forms";
 import ErrorMessage from "../../components/ErrorMessage";

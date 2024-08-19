@@ -1,0 +1,27 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0vw;
+  height: 5px;
+
+  background: var(--primary-color);
+  &:not(.hide) {
+    transition: all ease-in-out 1s;
+  }
+
+  &.show {
+    top: 0;
+    width: 95vw;
+  }
+
+  &.completed {
+    width: 100vw;
+    animation: loading ease-in-out 0.5s;
+    animation-delay: 0.5s;
+  }
+
+  &.hide {
+    width: 0vw;
+  }
+}

@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
 import authReducer from "../features/auth/authSlice";
+import employeePollReducer, {
+  ROOT_STATE_NAME as employeePollName
+} from "../features/employee-poll/employeePollSlice";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    auth: authReducer
+    auth: authReducer,
+    [employeePollName]: employeePollReducer
   }
 });

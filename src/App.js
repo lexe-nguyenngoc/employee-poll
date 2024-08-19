@@ -5,6 +5,8 @@ import Auth from "./features/auth";
 import EmployeePoll from "./features/employee-poll";
 import LoginPage from "./features/auth/pages/Login";
 import SignUpPage from "./features/auth/pages/SignUp";
+import Home from "./features/employee-poll/pages/Home";
+import Loading from "./components/Loading";
 
 const App = () => {
   const routes = useRoutes([
@@ -14,7 +16,7 @@ const App = () => {
       children: [
         {
           path: "",
-          element: <p>home</p>
+          element: <Home />
         },
         {
           path: "leader-board",
@@ -46,7 +48,12 @@ const App = () => {
     }
   ]);
 
-  return routes;
+  return (
+    <>
+      <Loading />
+      {routes}
+    </>
+  );
 };
 
 export default App;
