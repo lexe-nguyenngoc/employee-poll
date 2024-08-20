@@ -1,19 +1,21 @@
 import classNames from "classnames/bind";
 import React from "react";
 
-import Container from "../../../../components/Container";
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-import styles from "./Poll.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser } from "../../../auth/authSlice";
+import { _saveQuestionAnswer } from "../../../../api";
 import { generateUserAvt } from "../../../../utils";
-import Answer from "../../components/Answer";
+import { selectCurrentUser } from "../../../auth/authSlice";
 import {
   selectQuestion,
   selectQuestionLoadingCompleted
 } from "../../employeePollSlice";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { saveQuestionAnswer } from "../../asyncActions";
+
+import Answer from "../../components/Answer";
+import Container from "../../../../components/Container";
+
+import styles from "./Poll.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -23,21 +25,15 @@ const Poll = () => {
   const currentUser = useSelector(selectCurrentUser);
   const question = useSelector(selectQuestion(params.id));
   const isFetched = useSelector(selectQuestionLoadingCompleted);
-  const dispatch = useDispatch();
 
-  const handleAnswerClick = (answer) => {
-    dispatch(
-      saveQuestionAnswer({
-        answer: {
-          authedUser: currentUser.id,
-          qid: question.id,
-          answer
-        },
-        callback: () => {
-          navigate("/");
-        }
-      })
-    );
+  const handleAnswerClick = async (answer) => {
+    await _saveQuestionAnswer({
+      authedUser: currentUser.id,
+      qid: question.id,
+      answer
+    });
+
+    navigate("/");
   };
 
   if (isFetched && !question) return <Navigate to="/notfound" />;
