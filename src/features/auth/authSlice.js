@@ -16,6 +16,10 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.currentUser = null;
+    },
+    changeAnswer: (state, action) => {
+      const { qid, answer } = action.payload;
+      state.currentUser.answers[qid] = answer;
     }
   },
   extraReducers: (builder) => {
@@ -36,7 +40,7 @@ const authSlice = createSlice({
   }
 });
 
-export const { resetErrorMessage, logout } = authSlice.actions;
+export const { resetErrorMessage, logout, changeAnswer } = authSlice.actions;
 export const selectState = (state) => state[ROOT_STATE_NAME];
 export const selectCurrentUser = (state) => state[ROOT_STATE_NAME].currentUser;
 export default authSlice.reducer;

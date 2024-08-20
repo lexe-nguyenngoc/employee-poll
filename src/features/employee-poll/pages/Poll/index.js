@@ -1,12 +1,12 @@
 import classNames from "classnames/bind";
 import React from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { _saveQuestionAnswer } from "../../../../api";
 import { generateUserAvt } from "../../../../utils";
-import { selectCurrentUser } from "../../../auth/authSlice";
+import { changeAnswer, selectCurrentUser } from "../../../auth/authSlice";
 import {
   selectQuestion,
   selectQuestionLoadingCompleted
@@ -23,8 +23,9 @@ const Poll = () => {
   const params = useParams();
   const navigate = useNavigate();
   const currentUser = useSelector(selectCurrentUser);
-  const question = useSelector(selectQuestion(params.id));
+  const question = useSelector(selectQuestion(params.question_id));
   const isFetched = useSelector(selectQuestionLoadingCompleted);
+  const dispatch = useDispatch();
 
   const handleAnswerClick = async (answer) => {
     await _saveQuestionAnswer({
@@ -33,6 +34,7 @@ const Poll = () => {
       answer
     });
 
+    dispatch(changeAnswer({ qid: question.id, answer }));
     navigate("/");
   };
 
@@ -50,10 +52,12 @@ const Poll = () => {
       <h3 className={cx("poll__title")}>Would You Rather</h3>
       <div className={cx("poll__answer-group")}>
         <Answer
+          answered={currentUser.answers[question.id] === "optionOne"}
           answer={question.optionOne}
           onClick={() => handleAnswerClick("optionOne")}
         />
         <Answer
+          answered={currentUser.answers[question.id] === "optionTwo"}
           answer={question.optionTwo}
           onClick={() => handleAnswerClick("optionTwo")}
         />

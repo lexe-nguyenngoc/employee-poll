@@ -22,15 +22,15 @@ const App = () => {
           element: <Home />
         },
         {
-          path: "poll/:id",
+          path: "questions/:question_id",
           element: <Poll />
         },
         {
-          path: "leader-board",
+          path: "leaderboard",
           element: <Leaderboard />
         },
         {
-          path: "new",
+          path: "add",
           element: <NewPoll />
         }
       ]

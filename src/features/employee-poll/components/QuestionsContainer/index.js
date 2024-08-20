@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 const QuestionsContainer = ({ heading, questions }) => {
   const navigate = useNavigate();
 
-  const handleGoToPoll = (question) => navigate(`/poll/${question.id}`);
+  const handleGoToPoll = (question) => navigate(`/questions/${question.id}`);
 
   return (
     <div className={cx("questions-container")}>

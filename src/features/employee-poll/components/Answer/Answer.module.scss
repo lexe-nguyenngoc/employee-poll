@@ -1,4 +1,20 @@
 .answer {
+  &.answered {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary-color);
+
+      border-radius: 50%;
+    }
+  }
+
   &__text {
     padding: 12px;
     border: 1px solid #ccc;

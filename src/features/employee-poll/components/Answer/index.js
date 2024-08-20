@@ -7,9 +7,9 @@ import Button from "../../../../components/forms/Button";
 
 const cx = classNames.bind(styles);
 
-const Answer = ({ answer, className, onClick }) => {
+const Answer = ({ answer, answered, className, onClick }) => {
   return (
-    <div className={cx(className, "answer")}>
+    <div className={cx(className, "answer", { answered })}>
       <p className={cx("answer__text")}>{answer.text}</p>
 
       <Button
@@ -25,6 +25,7 @@ const Answer = ({ answer, className, onClick }) => {
 };
 
 Answer.propTypes = {
+  answered: PropTypes.bool,
   className: PropTypes.string,
   answer: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired

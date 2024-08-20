@@ -15,11 +15,14 @@ const cx = classNames.bind(styles);
 const Leaderboard = () => {
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
+  console.log(users);
 
   const transformedUsers = useMemo(() => {
     if (!users) return [];
 
-    return Object.values(users);
+    return Object.values(users).sort(
+      (a, b) => Object.keys(b.answers).length - Object.keys(a.answers).length
+    );
   }, [users]);
 
   useEffect(() => {

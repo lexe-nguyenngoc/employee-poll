@@ -21,13 +21,13 @@ const NAV = {
   "/leader-board": {
     id: 2,
     label: "Leaderboard",
-    href: "/leader-board",
+    href: "/leaderboard",
     position: 1
   },
   "/new": {
     id: 3,
     label: "New",
-    href: "/new",
+    href: "/add",
     position: 2
   }
 };
