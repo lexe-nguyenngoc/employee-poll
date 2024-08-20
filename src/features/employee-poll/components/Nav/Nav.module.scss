@@ -42,6 +42,11 @@ $link-width: 150px;
     text-align: center;
     text-decoration: none;
     padding: 8px 0px;
+    color: #000;
+
+    &.active {
+      color: var(--primary-color);
+    }
   }
 
   &__user-action {

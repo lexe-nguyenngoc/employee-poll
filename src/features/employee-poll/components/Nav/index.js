@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames/bind";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout, selectCurrentUser } from "../../../auth/authSlice";
@@ -18,13 +18,13 @@ const NAV = {
     href: "/",
     position: 0
   },
-  "/leader-board": {
+  "/leaderboard": {
     id: 2,
     label: "Leaderboard",
     href: "/leaderboard",
     position: 1
   },
-  "/new": {
+  "/add": {
     id: 3,
     label: "New",
     href: "/add",
@@ -51,9 +51,14 @@ const Nav = () => {
       <ul>
         {navList.map((nav) => (
           <li key={nav.id}>
-            <Link to={nav.href} className={cx("nav__link")}>
+            <NavLink
+              to={nav.href}
+              className={({ isActive }) =>
+                cx("nav__link", { active: isActive })
+              }
+            >
               {nav.label}
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>
