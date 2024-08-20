@@ -7,6 +7,7 @@ import { selectQuestions } from "../../employeePollSlice";
 import { selectCurrentUser } from "../../../auth/authSlice";
 import { getQuestionsThunk } from "../../asyncActions";
 import QuestionsContainer from "../../components/QuestionsContainer";
+import Container from "../../../../components/Container";
 
 import styles from "./Home.module.scss";
 
@@ -32,7 +33,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={cx("home")}>
+    <Container className={cx("home")}>
       <QuestionsContainer
         heading="New Questions"
         questions={transformedQuestions.new}
@@ -41,7 +42,7 @@ const Home = () => {
         heading="Done"
         questions={transformedQuestions.done}
       />
-    </div>
+    </Container>
   );
 };
 
