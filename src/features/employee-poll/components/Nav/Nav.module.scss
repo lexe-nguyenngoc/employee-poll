@@ -14,17 +14,15 @@ $link-width: 150px;
 .nav {
   @include center();
   padding: 10px 0;
-
-  &__left-side {
-    position: relative;
-  }
+  border-bottom: 2px solid #ccc;
+  position: relative;
 
   &__highlighter {
     position: absolute;
     top: 100%;
     width: $link-width;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: #000;
     transition: left ease-in-out 0.2s;
   }
 

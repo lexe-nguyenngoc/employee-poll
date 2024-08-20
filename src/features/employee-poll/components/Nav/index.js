@@ -45,23 +45,21 @@ const Nav = () => {
 
   return (
     <nav className={cx("nav")}>
-      <div className={cx("nav__left-side")}>
-        <ul>
-          {navList.map((nav) => (
-            <li key={nav.id}>
-              <Link to={nav.href} className={cx("nav__link")}>
-                {nav.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div
-          className={cx("nav__highlighter")}
-          style={{
-            left: `${activatedNavPosition.position * NAV_ITEM_WIDTH}px`
-          }}
-        ></div>
-      </div>
+      <ul>
+        {navList.map((nav) => (
+          <li key={nav.id}>
+            <Link to={nav.href} className={cx("nav__link")}>
+              {nav.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <div
+        className={cx("nav__highlighter")}
+        style={{
+          left: `${activatedNavPosition.position * NAV_ITEM_WIDTH}px`
+        }}
+      ></div>
 
       <div className={cx("nav__user-action")}>
         <div className={cx("nav__user")}>
