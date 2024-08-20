@@ -1,11 +1,11 @@
 import React from "react";
 import classNames from "classnames/bind";
-
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logout, selectCurrentUser } from "../../../auth/authSlice";
 
 import userAvt from "../../../../assets/images/user_avt.png";
-import { selectCurrentUser } from "../../../auth/authSlice";
 
 import styles from "./Nav.module.scss";
 
@@ -38,8 +38,13 @@ const navList = Object.values(NAV);
 const Nav = () => {
   const currentUser = useSelector(selectCurrentUser);
   const match = useLocation();
+  const dispatch = useDispatch();
 
   const activatedNavItem = NAV[match.pathname];
+
+  const handleLogoutClick = () => {
+    dispatch(logout());
+  };
 
   return (
     <nav className={cx("nav")}>
@@ -67,7 +72,9 @@ const Nav = () => {
           <p>{currentUser.name}</p>
         </div>
 
-        <button className={cx("nav__btn")}>Logout</button>
+        <button className={cx("nav__btn")} onClick={handleLogoutClick}>
+          Logout
+        </button>
       </div>
     </nav>
   );
