@@ -6,22 +6,11 @@
   height: 5px;
 
   background: var(--primary-color);
-  &:not(.hide) {
-    transition: all ease-in-out 1s;
-  }
 
   &.show {
+    transition: all ease-in-out 1s;
+
     top: 0;
-    width: 95vw;
-  }
-
-  &.completed {
     width: 100vw;
-    animation: loading ease-in-out 0.5s;
-    animation-delay: 0.5s;
-  }
-
-  &.hide {
-    width: 0vw;
   }
 }

@@ -27,6 +27,8 @@ const employeePollSlice = createSlice({
 export const selectState = (state) => state[ROOT_STATE_NAME];
 export const selectQuestions = (state) => state[ROOT_STATE_NAME].questions;
 export const selectQuestionLoading = (state) => state[ROOT_STATE_NAME].loading;
+export const selectQuestion = (id) => (state) =>
+  state[ROOT_STATE_NAME].questions?.[id] || null;
 
 export const selectQuestionLoadingCompleted = (state) =>
   !!state[ROOT_STATE_NAME].questions;

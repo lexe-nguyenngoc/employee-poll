@@ -4,10 +4,15 @@ import classNames from "classnames/bind";
 
 import styles from "./QuestionsContainer.module.scss";
 import Question from "../Question";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 const QuestionsContainer = ({ heading, questions }) => {
+  const navigate = useNavigate();
+
+  const handleGoToPoll = (question) => navigate(`/poll/${question.id}`);
+
   return (
     <div className={cx("questions-container")}>
       <h3 className={cx("questions-container__heading")}>{heading}</h3>
@@ -15,7 +20,7 @@ const QuestionsContainer = ({ heading, questions }) => {
       <ul className={cx("questions-container__list")}>
         {questions.map((question) => (
           <li key={question.id}>
-            <Question question={question} />
+            <Question question={question} onShowClick={handleGoToPoll} />
           </li>
         ))}
       </ul>

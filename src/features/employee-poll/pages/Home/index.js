@@ -16,6 +16,7 @@ const cx = classNames.bind(styles);
 const Home = () => {
   const questions = useSelector(selectQuestions);
   const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
 
   const transformedQuestions = useMemo(() => {
     const transformedQuestions = transformQuestionToType(
@@ -25,8 +26,6 @@ const Home = () => {
 
     return transformedQuestions;
   }, [questions, currentUser]);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getQuestionsThunk());

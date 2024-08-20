@@ -8,7 +8,11 @@ import { formatTime } from "../../../../utils";
 
 const cx = classNames.bind(styles);
 
-const Question = ({ question }) => {
+const Question = ({ question, onShowClick }) => {
+  const handleShowClick = () => {
+    onShowClick(question);
+  };
+
   return (
     <div className={cx("question")}>
       <h3 className={cx("question__author")}>{question.author}</h3>
@@ -18,6 +22,7 @@ const Question = ({ question }) => {
         className={cx("question__btn")}
         color="primary"
         variant="outlined"
+        onClick={handleShowClick}
       >
         Show
       </Button>
@@ -26,7 +31,8 @@ const Question = ({ question }) => {
 };
 
 Question.propTypes = {
-  question: PropTypes.object.isRequired
+  question: PropTypes.object.isRequired,
+  onShowClick: PropTypes.func.isRequired
 };
 
 export default Question;

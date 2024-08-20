@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 
 import { Link, useLocation } from "react-router-dom";
@@ -7,7 +6,6 @@ import { useSelector } from "react-redux";
 
 import userAvt from "../../../../assets/images/user_avt.png";
 import { selectCurrentUser } from "../../../auth/authSlice";
-import { Button } from "../../../../components/forms";
 
 import styles from "./Nav.module.scss";
 
@@ -41,7 +39,7 @@ const Nav = () => {
   const currentUser = useSelector(selectCurrentUser);
   const match = useLocation();
 
-  const activatedNavPosition = NAV[match.pathname];
+  const activatedNavItem = NAV[match.pathname];
 
   return (
     <nav className={cx("nav")}>
@@ -54,12 +52,14 @@ const Nav = () => {
           </li>
         ))}
       </ul>
-      <div
-        className={cx("nav__highlighter")}
-        style={{
-          left: `${activatedNavPosition.position * NAV_ITEM_WIDTH}px`
-        }}
-      ></div>
+      {activatedNavItem && (
+        <div
+          className={cx("nav__highlighter")}
+          style={{
+            left: `${activatedNavItem.position * NAV_ITEM_WIDTH}px`
+          }}
+        ></div>
+      )}
 
       <div className={cx("nav__user-action")}>
         <div className={cx("nav__user")}>
@@ -72,7 +72,5 @@ const Nav = () => {
     </nav>
   );
 };
-
-Nav.propTypes = {};
 
 export default Nav;

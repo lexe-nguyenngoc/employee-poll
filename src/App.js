@@ -7,6 +7,7 @@ import LoginPage from "./features/auth/pages/Login";
 import SignUpPage from "./features/auth/pages/SignUp";
 import Home from "./features/employee-poll/pages/Home";
 import Loading from "./components/Loading";
+import Poll from "./features/employee-poll/pages/Poll";
 
 const App = () => {
   const routes = useRoutes([
@@ -17,6 +18,10 @@ const App = () => {
         {
           path: "",
           element: <Home />
+        },
+        {
+          path: "poll/:id",
+          element: <Poll />
         },
         {
           path: "leader-board",

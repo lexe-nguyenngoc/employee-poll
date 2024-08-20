@@ -12,27 +12,8 @@ const cx = classNames.bind(styles);
 
 const Loading = () => {
   const loading = useSelector(selectQuestionLoading);
-  const isCompleted = useSelector(selectQuestionLoadingCompleted);
-  const [hide, setHide] = useState(false);
 
-  useEffect(() => {
-    let timeout;
-    if (isCompleted) {
-      timeout = setTimeout(() => {
-        setHide(true);
-      }, 1000);
-    }
-
-    return () => {
-      if (timeout) clearTimeout(timeout);
-    };
-  }, [isCompleted]);
-
-  return (
-    <div
-      className={cx("loading", { show: loading, completed: isCompleted, hide })}
-    />
-  );
+  return <div className={cx("loading", { show: loading })} />;
 };
 
 export default Loading;
