@@ -1,0 +1,22 @@
+.leaderboard {
+  margin-top: 50px;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+  }
+
+  thead {
+    background-color: rgb(238, 238, 238);
+
+    th {
+      padding: 12px;
+      color: rgb(49, 44, 44);
+    }
+  }
+
+  tbody td {
+    padding: 12px;
+  }
+}

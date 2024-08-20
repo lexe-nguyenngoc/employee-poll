@@ -1,0 +1,19 @@
+.user {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 50px;
+    margin-right: 8px;
+  }
+
+  &__name {
+    font-size: 2rem;
+    letter-spacing: 0.2px;
+  }
+
+  &__id {
+    font-size: 1.4rem;
+    color: rgb(107, 107, 107);
+  }
+}

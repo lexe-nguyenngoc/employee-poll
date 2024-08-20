@@ -9,6 +9,7 @@ import Home from "./features/employee-poll/pages/Home";
 import Loading from "./components/Loading";
 import Poll from "./features/employee-poll/pages/Poll";
 import NewPoll from "./features/employee-poll/pages/NewPoll";
+import Leaderboard from "./features/employee-poll/pages/Leaderboard";
 
 const App = () => {
   const routes = useRoutes([
@@ -26,7 +27,7 @@ const App = () => {
         },
         {
           path: "leader-board",
-          element: <p>leader-board</p>
+          element: <Leaderboard />
         },
         {
           path: "new",
