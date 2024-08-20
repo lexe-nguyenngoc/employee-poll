@@ -8,6 +8,7 @@ import SignUpPage from "./features/auth/pages/SignUp";
 import Home from "./features/employee-poll/pages/Home";
 import Loading from "./components/Loading";
 import Poll from "./features/employee-poll/pages/Poll";
+import NewPoll from "./features/employee-poll/pages/NewPoll";
 
 const App = () => {
   const routes = useRoutes([
@@ -29,7 +30,7 @@ const App = () => {
         },
         {
           path: "new",
-          element: <p>new</p>
+          element: <NewPoll />
         }
       ]
     },
