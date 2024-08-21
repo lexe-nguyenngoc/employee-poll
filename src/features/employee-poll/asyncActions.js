@@ -9,6 +9,16 @@ export const getQuestionsThunk = createAsyncThunk(
   }
 );
 
+export const getQuestionThunk = createAsyncThunk(
+  "employeePoll/getQuestionDetail",
+  async ({ id, failFn }) => {
+    const questions = await _getQuestions();
+    if (questions[id]) return questions[id];
+
+    failFn();
+  }
+);
+
 export const getUsersThunk = createAsyncThunk(
   "employeePoll/getUsers",
   async (_) => {

@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getQuestionsThunk, getUsersThunk } from "./asyncActions";
+import {
+  getQuestionsThunk,
+  getQuestionThunk,
+  getUsersThunk
+} from "./asyncActions";
 
 export const ROOT_STATE_NAME = "employee-poll";
 
@@ -8,7 +12,8 @@ const employeePollSlice = createSlice({
   initialState: {
     questions: null,
     users: null,
-    loading: 0
+    loading: 0,
+    question: null
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -19,6 +24,13 @@ const employeePollSlice = createSlice({
       .addCase(getQuestionsThunk.fulfilled, (state, action) => {
         state.loading = state.loading - 1;
         state.questions = action.payload;
+      })
+      .addCase(getQuestionThunk.pending, (state) => {
+        state.loading = state.loading + 1;
+      })
+      .addCase(getQuestionThunk.fulfilled, (state, action) => {
+        state.loading = state.loading - 1;
+        state.question = action.payload;
       })
       .addCase(getUsersThunk.pending, (state) => {
         state.loading = state.loading + 1;
@@ -34,8 +46,7 @@ export const selectState = (state) => state[ROOT_STATE_NAME];
 export const selectQuestions = (state) => state[ROOT_STATE_NAME].questions;
 export const selectQuestionLoading = (state) =>
   state[ROOT_STATE_NAME].loading > 0;
-export const selectQuestion = (id) => (state) =>
-  state[ROOT_STATE_NAME].questions?.[id] || null;
+export const selectQuestion = (state) => state[ROOT_STATE_NAME].question;
 export const selectQuestionLoadingCompleted = (state) =>
   !!state[ROOT_STATE_NAME].questions;
 export const selectUsers = (state) => state[ROOT_STATE_NAME].users;

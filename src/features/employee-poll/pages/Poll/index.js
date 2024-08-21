@@ -16,6 +16,8 @@ import Answer from "../../components/Answer";
 import Container from "../../../../components/Container";
 
 import styles from "./Poll.module.scss";
+import { useEffect } from "react";
+import { getQuestionThunk } from "../../asyncActions";
 
 const cx = classNames.bind(styles);
 
@@ -23,8 +25,7 @@ const Poll = () => {
   const params = useParams();
   const navigate = useNavigate();
   const currentUser = useSelector(selectCurrentUser);
-  const question = useSelector(selectQuestion(params.question_id));
-  const isFetched = useSelector(selectQuestionLoadingCompleted);
+  const question = useSelector(selectQuestion);
   const dispatch = useDispatch();
 
   const handleAnswerClick = async (answer) => {
@@ -38,7 +39,18 @@ const Poll = () => {
     navigate("/");
   };
 
-  if (isFetched && !question) return <Navigate to="/notfound" />;
+  useEffect(() => {
+    const failFn = () => {
+      navigate("/not-found");
+    };
+    dispatch(
+      getQuestionThunk({
+        failFn,
+        id: params.question_id
+      })
+    );
+  }, [dispatch, navigate, params.question_id]);
+
   if (!question) return <></>;
   return (
     <Container className={cx("poll")}>
