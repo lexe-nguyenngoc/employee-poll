@@ -15,7 +15,6 @@ const cx = classNames.bind(styles);
 const Leaderboard = () => {
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
-  console.log(users);
 
   const transformedUsers = useMemo(() => {
     if (!users) return [];

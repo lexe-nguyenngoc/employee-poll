@@ -1,19 +1,25 @@
-import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
 import classNames from "classnames/bind";
+import React, { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import authImage from "../../assets/images/login.png";
 
-import styles from "./Auth.module.scss";
 import { useSelector } from "react-redux";
+import styles from "./Auth.module.scss";
 import { selectCurrentUser } from "./authSlice";
 
 const cx = classNames.bind(styles);
 
 const Auth = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  if (currentUser) return <Navigate to="/" />;
+  useEffect(() => {
+    if (currentUser) {
+      navigate(location.state?.path || "/");
+    }
+  }, [currentUser, location.state?.path, navigate]);
 
   return (
     <div className={cx("auth")}>

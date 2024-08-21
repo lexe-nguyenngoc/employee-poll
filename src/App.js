@@ -10,12 +10,17 @@ import Loading from "./components/Loading";
 import Poll from "./features/employee-poll/pages/Poll";
 import NewPoll from "./features/employee-poll/pages/NewPoll";
 import Leaderboard from "./features/employee-poll/pages/Leaderboard";
+import AuthenticatedGuard from "./components/routes/AuthenticatedGuard";
 
 const App = () => {
   const routes = useRoutes([
     {
       path: "/",
-      element: <EmployeePoll />,
+      element: (
+        <AuthenticatedGuard>
+          <EmployeePoll />
+        </AuthenticatedGuard>
+      ),
       children: [
         {
           path: "",
