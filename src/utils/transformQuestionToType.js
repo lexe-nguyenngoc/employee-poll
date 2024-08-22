@@ -5,7 +5,7 @@ const transformQuestionToType = (questions, userId) => {
       done: []
     };
 
-  return Object.values(questions).reduce(
+  const { new: newQuestions, done } = Object.values(questions).reduce(
     (previousValue, currentValue) => {
       if (
         currentValue.optionOne.votes.includes(userId) ||
@@ -24,6 +24,11 @@ const transformQuestionToType = (questions, userId) => {
       done: []
     }
   );
+
+  return {
+    new: newQuestions.sort((a, b) => b.timestamp - a.timestamp),
+    done: done.sort((a, b) => b.timestamp - a.timestamp)
+  };
 };
 
 export default transformQuestionToType;

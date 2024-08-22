@@ -13,6 +13,8 @@ const QuestionsContainer = ({ heading, questions }) => {
 
   const handleGoToPoll = (question) => navigate(`/questions/${question.id}`);
 
+  if (questions.length === 0) return <></>;
+
   return (
     <div className={cx("questions-container")}>
       <h3 className={cx("questions-container__heading")}>{heading}</h3>

@@ -5,6 +5,7 @@ export const getQuestionsThunk = createAsyncThunk(
   "employeePoll/getQuestions",
   async (_) => {
     const questions = await _getQuestions();
+
     return questions;
   }
 );
