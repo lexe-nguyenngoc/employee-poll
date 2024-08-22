@@ -9,6 +9,7 @@ import { generateUserAvt } from "../../../../utils";
 import { changeAnswer, selectCurrentUser } from "../../../auth/authSlice";
 import {
   selectQuestion,
+  selectQuestionLoading,
   selectQuestionLoadingCompleted
 } from "../../employeePollSlice";
 
@@ -26,6 +27,7 @@ const Poll = () => {
   const navigate = useNavigate();
   const currentUser = useSelector(selectCurrentUser);
   const question = useSelector(selectQuestion);
+  const loading = useSelector(selectQuestionLoading);
   const dispatch = useDispatch();
 
   const handleAnswerClick = async (answer) => {
@@ -62,18 +64,20 @@ const Poll = () => {
       />
 
       <h3 className={cx("poll__title")}>Would You Rather</h3>
-      <div className={cx("poll__answer-group")}>
-        <Answer
-          answered={currentUser.answers[question.id] === "optionOne"}
-          answer={question.optionOne}
-          onClick={() => handleAnswerClick("optionOne")}
-        />
-        <Answer
-          answered={currentUser.answers[question.id] === "optionTwo"}
-          answer={question.optionTwo}
-          onClick={() => handleAnswerClick("optionTwo")}
-        />
-      </div>
+      {!loading && (
+        <div className={cx("poll__answer-group")}>
+          <Answer
+            answered={currentUser.answers[question.id] === "optionOne"}
+            answer={question.optionOne}
+            onClick={() => handleAnswerClick("optionOne")}
+          />
+          <Answer
+            answered={currentUser.answers[question.id] === "optionTwo"}
+            answer={question.optionTwo}
+            onClick={() => handleAnswerClick("optionTwo")}
+          />
+        </div>
+      )}
     </Container>
   );
 };
