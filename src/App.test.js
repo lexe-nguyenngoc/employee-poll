@@ -3,60 +3,56 @@ import * as React from "react";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { setupStore } from "./app/store";
 import { loginAsync } from "./features/auth/asyncActions";
 
-describe("App component", () => {
-  test("should match with snapshot", () => {
-    const view = render(
+export function renderWithProviders(
+  ui,
+  {
+    preloadedState = {},
+    // Automatically create a store instance if no store was passed in
+    store = setupStore(preloadedState),
+    ...renderOptions
+  } = {}
+) {
+  function Wrapper({ children }) {
+    return (
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <BrowserRouter>{children}</BrowserRouter>
       </Provider>
     );
+  }
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+}
+describe("App component", () => {
+  test("should match with snapshot", () => {
+    const view = renderWithProviders(<App />);
     expect(view).toMatchSnapshot();
   });
 
   test("should show login page when user is not login", () => {
-    const view = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    );
+    const view = renderWithProviders(<App />);
     expect(view.queryByText(/login/i)).toBeInTheDocument();
   });
 
   test("should show dashboard page when user is login", async () => {
+    const store = setupStore();
     await store.dispatch(
       loginAsync({ user: "sarahedo", password: "password123" })
     );
 
-    const view = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    );
+    const view = renderWithProviders(<App />, { store });
 
     expect(view.queryByText(/home/i)).toBeInTheDocument();
   });
 
   test("should show leaderboard when user is login", async () => {
+    const store = setupStore();
     await store.dispatch(
       loginAsync({ user: "sarahedo", password: "password123" })
     );
 
-    const view = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    );
+    const view = renderWithProviders(<App />, { store });
 
     const link = view.queryByText(/leaderboard/i);
     expect(link).toBeInTheDocument();
@@ -68,17 +64,12 @@ describe("App component", () => {
   });
 
   test("should show new page when user is login", async () => {
+    const store = setupStore();
     await store.dispatch(
       loginAsync({ user: "sarahedo", password: "password123" })
     );
 
-    const view = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    );
+    const view = renderWithProviders(<App />, { store });
 
     const link = view.queryByText(/new/i);
     expect(link).toBeInTheDocument();
@@ -92,17 +83,12 @@ describe("App component", () => {
   });
 
   test("should show login page when user is login and click logout", async () => {
+    const store = setupStore();
     await store.dispatch(
       loginAsync({ user: "sarahedo", password: "password123" })
     );
 
-    const view = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    );
+    const view = renderWithProviders(<App />, { store });
 
     const btn = view.queryByText(/logout/i);
     expect(btn).toBeInTheDocument();
