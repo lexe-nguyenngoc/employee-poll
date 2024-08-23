@@ -3,6 +3,8 @@
 This is the Employee Poll app, which is the final project for Udacity's course.
 This project use [Create React App](https://github.com/facebook/create-react-app)
 
+## Routes
+
 `/`: dashboard page
 
 `/auth`: login page
