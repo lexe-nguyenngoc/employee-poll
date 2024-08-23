@@ -12,4 +12,13 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
+
+  &__history {
+    text-align: left;
+    margin-top: 50px;
+
+    h3 {
+      text-align: center;
+    }
+  }
 }

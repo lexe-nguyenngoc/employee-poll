@@ -2,23 +2,19 @@ import classNames from "classnames/bind";
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { _saveQuestionAnswer } from "../../../../api";
 import { generateUserAvt } from "../../../../utils";
 import { changeAnswer, selectCurrentUser } from "../../../auth/authSlice";
-import {
-  selectQuestion,
-  selectQuestionLoading,
-  selectQuestionLoadingCompleted
-} from "../../employeePollSlice";
+import { selectQuestion, selectQuestionLoading } from "../../employeePollSlice";
 
-import Answer from "../../components/Answer";
 import Container from "../../../../components/Container";
+import Answer from "../../components/Answer";
 
-import styles from "./Poll.module.scss";
 import { useEffect } from "react";
 import { getQuestionThunk } from "../../asyncActions";
+import styles from "./Poll.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -39,6 +35,20 @@ const Poll = () => {
 
     dispatch(changeAnswer({ qid: question.id, answer }));
     navigate("/");
+  };
+
+  const renderOptionHistory = (key, label) => {
+    const { votes } = question[key];
+    return (
+      <div>
+        {label}:{" "}
+        <b>
+          {votes.length > 0
+            ? votes.map((x) => (x === currentUser.id ? "You" : x)).join(", ")
+            : "None"}
+        </b>
+      </div>
+    );
   };
 
   useEffect(() => {
@@ -78,6 +88,12 @@ const Poll = () => {
           />
         </div>
       )}
+
+      <div className={cx("poll__history")}>
+        <h3>History</h3>
+        {renderOptionHistory("optionOne", "Option One")}
+        {renderOptionHistory("optionTwo", "Option Two")}
+      </div>
     </Container>
   );
 };
