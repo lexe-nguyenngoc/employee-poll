@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginAsync } from "./asyncActions";
+import { saveQuestionAnswer } from "../employee-poll/asyncActions";
 
 export const ROOT_STATE_NAME = "auth";
 
@@ -36,6 +37,10 @@ const authSlice = createSlice({
       .addCase(loginAsync.rejected, (state, action) => {
         state.loading = false;
         state.errorMessage = action.payload;
+      })
+      .addCase(saveQuestionAnswer.fulfilled, (state, action) => {
+        const { qid, answer } = action.payload.questionAnswer;
+        state.currentUser.answers[qid] = answer;
       });
   }
 });

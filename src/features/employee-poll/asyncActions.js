@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { _getQuestions, _getUsers } from "../../api";
+import { _getQuestions, _getUsers, _saveQuestionAnswer } from "../../api";
 
 export const getQuestionsThunk = createAsyncThunk(
   "employeePoll/getQuestions",
@@ -25,5 +25,13 @@ export const getUsersThunk = createAsyncThunk(
   async (_) => {
     const users = await _getUsers();
     return users;
+  }
+);
+
+export const saveQuestionAnswer = createAsyncThunk(
+  "employeePoll/saveQuestionAnswer",
+  async (questionAnswer) => {
+    const updatedQuestion = await _saveQuestionAnswer(questionAnswer);
+    return { updatedQuestion, questionAnswer };
   }
 );

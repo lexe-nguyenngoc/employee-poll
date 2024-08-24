@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getQuestionsThunk,
   getQuestionThunk,
-  getUsersThunk
+  getUsersThunk,
+  saveQuestionAnswer
 } from "./asyncActions";
 
 export const ROOT_STATE_NAME = "employee-poll";
@@ -38,6 +39,13 @@ const employeePollSlice = createSlice({
       .addCase(getUsersThunk.fulfilled, (state, action) => {
         state.loading = state.loading - 1;
         state.users = action.payload;
+      })
+      .addCase(saveQuestionAnswer.pending, (state) => {
+        state.loading = state.loading + 1;
+      })
+      .addCase(saveQuestionAnswer.fulfilled, (state, action) => {
+        state.loading = state.loading - 1;
+        state.question = action.payload.updatedQuestion;
       });
   }
 });

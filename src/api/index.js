@@ -203,18 +203,33 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
         }
       };
 
-      questions = {
-        ...questions,
-        [qid]: {
-          ...questions[qid],
+      let foundQuestion = questions[qid];
+      console.log(foundQuestion[answer].votes);
+      if (!foundQuestion[answer].votes.includes(authedUser)) {
+        foundQuestion = {
+          ...foundQuestion,
           [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser])
+            ...foundQuestion[answer],
+            votes: [authedUser, ...foundQuestion[answer].votes]
           }
+        };
+      }
+
+      const restAnswer = answer === "optionOne" ? "optionTwo" : "optionOne";
+      foundQuestion = {
+        ...foundQuestion,
+        [restAnswer]: {
+          ...foundQuestion[restAnswer],
+          votes: foundQuestion[restAnswer].votes.filter((x) => x !== authedUser)
         }
       };
 
-      resolve(true);
+      questions = {
+        ...questions,
+        [qid]: foundQuestion
+      };
+
+      resolve(questions[qid]);
     }, 500);
   });
 }

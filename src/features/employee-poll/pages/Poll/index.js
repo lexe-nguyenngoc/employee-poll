@@ -4,16 +4,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { _saveQuestionAnswer } from "../../../../api";
 import { generateUserAvt } from "../../../../utils";
-import { changeAnswer, selectCurrentUser } from "../../../auth/authSlice";
+import { selectCurrentUser } from "../../../auth/authSlice";
 import { selectQuestion, selectQuestionLoading } from "../../employeePollSlice";
 
 import Container from "../../../../components/Container";
 import Answer from "../../components/Answer";
 
 import { useEffect } from "react";
-import { getQuestionThunk } from "../../asyncActions";
+import { getQuestionThunk, saveQuestionAnswer } from "../../asyncActions";
 import styles from "./Poll.module.scss";
 
 const cx = classNames.bind(styles);
@@ -26,15 +25,14 @@ const Poll = () => {
   const loading = useSelector(selectQuestionLoading);
   const dispatch = useDispatch();
 
-  const handleAnswerClick = async (answer) => {
-    await _saveQuestionAnswer({
-      authedUser: currentUser.id,
-      qid: question.id,
-      answer
-    });
-
-    dispatch(changeAnswer({ qid: question.id, answer }));
-    navigate("/");
+  const handleAnswerClick = (answer) => {
+    dispatch(
+      saveQuestionAnswer({
+        authedUser: currentUser.id,
+        qid: question.id,
+        answer
+      })
+    );
   };
 
   const renderOptionHistory = (key, label) => {
@@ -77,23 +75,25 @@ const Poll = () => {
       {!loading && (
         <div className={cx("poll__answer-group")}>
           <Answer
-            answered={currentUser.answers[question.id] === "optionOne"}
+            answered={question.optionOne.votes.includes(currentUser.id)}
             answer={question.optionOne}
             onClick={() => handleAnswerClick("optionOne")}
           />
           <Answer
-            answered={currentUser.answers[question.id] === "optionTwo"}
+            answered={question.optionTwo.votes.includes(currentUser.id)}
             answer={question.optionTwo}
             onClick={() => handleAnswerClick("optionTwo")}
           />
         </div>
       )}
 
-      <div className={cx("poll__history")}>
-        <h3>History</h3>
-        {renderOptionHistory("optionOne", "Option One")}
-        {renderOptionHistory("optionTwo", "Option Two")}
-      </div>
+      {currentUser.answers[question.id] && (
+        <div className={cx("poll__history")}>
+          <h3>History</h3>
+          {renderOptionHistory("optionOne", "Option One")}
+          {renderOptionHistory("optionTwo", "Option Two")}
+        </div>
+      )}
     </Container>
   );
 };
