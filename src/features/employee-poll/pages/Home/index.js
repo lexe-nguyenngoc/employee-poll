@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import classNames from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,6 +8,7 @@ import { selectCurrentUser } from "../../../auth/authSlice";
 import { getQuestionsThunk } from "../../asyncActions";
 import QuestionsContainer from "../../components/QuestionsContainer";
 import Container from "../../../../components/Container";
+import Button from "../../../../components/forms/Button";
 
 import styles from "./Home.module.scss";
 
@@ -17,6 +18,8 @@ const Home = () => {
   const questions = useSelector(selectQuestions);
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
+
+  const [showUnanswered, setShowUnanswered] = useState(true);
 
   const transformedQuestions = useMemo(() => {
     const transformedQuestions = transformQuestionToType(
@@ -33,13 +36,21 @@ const Home = () => {
 
   return (
     <Container className={cx("home")}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => {
+          setShowUnanswered((prevState) => !prevState);
+        }}
+      >
+        Show {showUnanswered ? "New Question" : "Done"}
+      </Button>
+
       <QuestionsContainer
-        heading="New Questions"
-        questions={transformedQuestions.new}
-      />
-      <QuestionsContainer
-        heading="Done"
-        questions={transformedQuestions.done}
+        heading={showUnanswered ? "New Questions" : "Done"}
+        questions={
+          showUnanswered ? transformedQuestions.new : transformedQuestions.done
+        }
       />
     </Container>
   );
