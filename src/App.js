@@ -1,16 +1,20 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
+
 import NotFound from "./components/NotFound";
+import Loading from "./components/Loading";
+import AuthenticatedGuard from "./components/routes/AuthenticatedGuard";
+
+import { MainLayout } from "./layouts";
+
 import Auth from "./features/auth";
 import EmployeePoll from "./features/employee-poll";
 import LoginPage from "./features/auth/pages/Login";
 import SignUpPage from "./features/auth/pages/SignUp";
 import Home from "./features/employee-poll/pages/Home";
-import Loading from "./components/Loading";
 import Poll from "./features/employee-poll/pages/Poll";
 import NewPoll from "./features/employee-poll/pages/NewPoll";
 import Leaderboard from "./features/employee-poll/pages/Leaderboard";
-import AuthenticatedGuard from "./components/routes/AuthenticatedGuard";
 
 const App = () => {
   const routes = useRoutes([
@@ -18,7 +22,9 @@ const App = () => {
       path: "/",
       element: (
         <AuthenticatedGuard>
-          <EmployeePoll />
+          <MainLayout>
+            <EmployeePoll />
+          </MainLayout>
         </AuthenticatedGuard>
       ),
       children: [
@@ -56,7 +62,11 @@ const App = () => {
     },
     {
       path: "*",
-      element: <NotFound />
+      element: (
+        <MainLayout>
+          <NotFound />
+        </MainLayout>
+      )
     }
   ]);
 

@@ -1,7 +1,7 @@
-import React from "react";
 import classNames from "classnames/bind";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { logout, selectCurrentUser } from "../../../auth/authSlice";
 
@@ -45,6 +45,8 @@ const Nav = () => {
   const handleLogoutClick = () => {
     dispatch(logout());
   };
+
+  if (!currentUser) return <></>;
 
   return (
     <nav className={cx("nav")}>

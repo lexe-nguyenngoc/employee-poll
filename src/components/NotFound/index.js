@@ -17,16 +17,18 @@ const NotFound = () => {
   };
 
   return (
-    <Container className={cx("not-found")}>
-      <h1>Opp! Not found!</h1>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleBackToHomeClick}
-      >
-        Back to home
-      </Button>
-    </Container>
+    <>
+      <Container className={cx("not-found")}>
+        <h1>Opp! Not found!</h1>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleBackToHomeClick}
+        >
+          Back to home
+        </Button>
+      </Container>
+    </>
   );
 };
 

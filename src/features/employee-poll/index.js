@@ -1,16 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { selectCurrentUser } from "../auth/authSlice";
-import Nav from "./components/Nav";
+import { Outlet } from "react-router-dom";
 
 const EmployeePoll = () => {
-  return (
-    <>
-      <Nav />
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 };
 
 export default EmployeePoll;
